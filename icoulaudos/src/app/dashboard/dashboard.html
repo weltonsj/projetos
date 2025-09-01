@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>iCouLaudos | Dashboard</title>
+        <link rel="stylesheet" href="../../config/css/reset.css">
+        <link rel="stylesheet" href="../../config/css/variables.css">
+        <link rel="stylesheet" href="./dashboard.css">
+        <link rel="stylesheet" href="./styles/section-main.css">
+        <link rel="stylesheet" href="./styles/buttons.css">
+    </head>
+
+    <body>
+        <header class="dashboard-header">
+            <!-- Foto perfil -->
+             <div class="user-profile" id="user-profile">
+                <span class="crown" aria-hidden="true">👑</span>
+                <img src="#" alt="Foto de perfil" />
+            </div>
+            <!-- <div id="account-info" class="account-info"></div> -->
+
+            <!-- Logo Home Button -->
+            <div class="logo">
+                <a href="http://192.168.0.129:5173/src/app/dashboard/dashboard.html"
+                    style="text-decoration: none; color: inherit; cursor: pointer;">
+                    <svg class="home-icon" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="32" height="32"
+                        viewBox="0,0,256,256">
+                        <g fill="#ffffff" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
+                            stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0"
+                            font-family="none" font-weight="none" font-size="none" text-anchor="none"
+                            style="mix-blend-mode: normal">
+                            <g transform="scale(8,8)">
+                                <path
+                                    d="M16,2.59375l-0.71875,0.6875l-13,13l1.4375,1.4375l1.28125,-1.28125v11.5625h9v-10h4v10h9v-11.5625l1.28125,1.28125l1.4375,-1.4375l-13,-13zM16,5.4375l9,9v11.5625h-5v-10h-8v10h-5v-11.5625z">
+                                </path>
+                            </g>
+                        </g>
+                    </svg>
+                </a>
+            </div>
+            
+            <!-- Botão Mobile -->
+            <button class="hamburger" id="hamburger-btn"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+                    width="32" height="32" viewBox="0,0,256,256">
+                    <g fill="#ffffff" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
+                        stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0"
+                        font-family="none" font-weight="none" font-size="none" text-anchor="none"
+                        style="mix-blend-mode: normal">
+                        <g transform="scale(5.12,5.12)">
+                            <path
+                                d="M5,8c-0.72127,-0.0102 -1.39216,0.36875 -1.75578,0.99175c-0.36361,0.623 -0.36361,1.39351 0,2.01651c0.36361,0.623 1.0345,1.00195 1.75578,0.99175h40c0.72127,0.0102 1.39216,-0.36875 1.75578,-0.99175c0.36361,-0.623 0.36361,-1.39351 0,-2.01651c-0.36361,-0.623 -1.0345,-1.00195 -1.75578,-0.99175zM5,23c-0.72127,-0.0102 -1.39216,0.36875 -1.75578,0.99175c-0.36361,0.623 -0.36361,1.39351 0,2.01651c0.36361,0.623 1.0345,1.00195 1.75578,0.99175h40c0.72127,0.0102 1.39216,-0.36875 1.75578,-0.99175c0.36361,-0.623 0.36361,-1.39351 0,-2.01651c-0.36361,-0.623 -1.0345,-1.00195 -1.75578,-0.99175zM5,38c-0.72127,-0.0102 -1.39216,0.36875 -1.75578,0.99175c-0.36361,0.623 -0.36361,1.39351 0,2.01651c0.36361,0.623 1.0345,1.00195 1.75578,0.99175h40c0.72127,0.0102 1.39216,-0.36875 1.75578,-0.99175c0.36361,-0.623 0.36361,-1.39351 0,-2.01651c-0.36361,-0.623 -1.0345,-1.00195 -1.75578,-0.99175z">
+                            </path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </header>
+
+        <nav class="dashboard-menu" id="dashboard-menu">
+            <button data-action="evaluate-patient">🩺 Avaliar Paciente</button>
+            <button data-action="register-patient">➕ Cadastrar Paciente</button>
+            <button data-action="patients">🧑‍🤝‍🧑 Pacientes</button>
+            <button data-action="generate-laudo">📄 Gerar Laudo</button>
+            <button data-action="delete-laudo">🗑️ Excluir Laudo</button>
+            <button data-action="generate-report">📊 Gerar Relatório</button>
+            <button data-action="configuration">⚙️ Configurações</button>
+            <button data-action="profile">👤 Meu Perfil</button>
+            <button data-action="logout" class="logout-btn">🚪 Sair</button>
+
+            <div id="account-info" class="account-info"></div>
+        </nav>
+
+        <main class="dashboard-content">
+            <h1>Bem-vindo ao iCouLaudos</h1>
+            <p>Selecione uma ação no menu para começar.</p>
+        </main>
+
+        <script type="module" src="dashboard.js"></script>
+        <script type="module" src="../../config/firebase/auth-guard.js"></script>
+    </body>
+</html>

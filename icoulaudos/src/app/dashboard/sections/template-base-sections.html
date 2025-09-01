@@ -1,0 +1,41 @@
+<!-- Estilo da seção: Serve para estilização especifica de cada seção separadamente das demais -->
+<style></style>
+
+<!-- Seção principal -->
+<section class="section-main">
+    <h2><!-- Emoji e título da seção --></h2>
+    <p><!-- Descrição ou instrução da seção --></p>
+
+    <!-- Botão para exibir conteúdo da seção caso seja necessário. -->
+    <button id="show-section-button" class="show-section-button"></button>
+
+    <form id="section-main-container" class="section-main-container">
+        <div class="section-actions-btn">
+            <!-- Botões de ação (exemplo) -->
+            <div class="section-actions-btn">
+                <button type="submit" class="action-button" id="btnSalvarFinalizado" title="Salvar Paciente">💾 <span
+                        class="buttonTextHidden">Salvar</span></button>
+                <button type="button" class="action-button" id="btnSalvarRascunho" title="Salvar como Rascunho">📝 <span
+                        class="buttonTextHidden">Rascunho</span></button>
+                <button type="reset" class="action-button" id="btnLimparFormulario" title="Limpar Formulário">❌ <span
+                        class="buttonTextHidden">Limpar</span></button>
+            </div>
+        </div>
+
+        <div class="support-container">
+            <h3><!-- Bloco de campos (exemplo: Dados Principais) --></h3>
+            <p></p>
+            <div class="section-grid">
+                <!-- Campos do formulário -->
+                <!--
+                <label title="Exemplo">
+                    Nome do campo:
+                    <input type="text" name="exemplo" required />
+                </label>
+                -->
+            </div>
+        </div>
+
+        <!-- Repita h3 + section-grid para outros blocos de campos, se necessário -->
+    </form>
+</section>

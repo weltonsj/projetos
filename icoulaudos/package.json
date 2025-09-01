@@ -1,0 +1,24 @@
+{
+  "name": "icoulaudos",
+  "version": "1.0.0",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [],
+  "author": "Darlin Welton",
+  "license": "ISC",
+  "description": "Sistema web para automação de laudos psicológicos.",
+  "devDependencies": {
+    "vite": "^7.0.6"
+  },
+  "dependencies": {
+    "firebase": "^12.0.0",
+    "html2pdf.js": "^0.11.1"
+  }
+}

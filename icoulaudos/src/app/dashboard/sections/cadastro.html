@@ -1,0 +1,437 @@
+<style>
+    /* .section-main-container {
+        padding: 1rem;
+        background: var(--el-color-primary-light-8);
+    } */
+
+    .show-section-button {
+        margin-bottom: 30rem;
+    }
+    
+</style>
+
+<section class="section-main">
+
+    <h2 class="ocultar-cabecalho">➕ Cadastro de Paciente</h2>
+    <p class="ocultar-cabecalho">Clique no botão abaixo para iniciar o cadastro de um novo paciente.</p>
+
+    <!-- deve aparecer junto ao formulário de edição -->
+    <h2 id="h2-editar" style="display: none;">Atualização de Dados</h2>
+    <p id="p-editar" style="display: none;">
+        Atualize os dados do paciente e clique em <strong>Salvar</strong>. Para cancelar, use <strong>Cancelar</strong>.
+        Para excluir, use <strong>Excluir</strong>.
+    </p>
+
+    <button id="show-section-button" class="show-section-button">✅ Novo Cadastro</button>
+
+    <div class="section-actions-btn" style="display: none;">
+        <button type="submit" class="action-button btn-green" id="btnSalvarFinalizado" title="Salvar Paciente">💾 <span
+                class="buttonTextHidden">Salvar</span></button>
+        <button type="button" class="action-button btn-blue" id="btnSalvarRascunho" title="Salvar como Rascunho">📝
+            <span class="buttonTextHidden">Rascunho</span></button>
+        <button type="reset" class="action-button btn-red" id="btnLimparFormulario" title="Cancelar Cadastro">❌ <span
+                class="buttonTextHidden">Cancelar</span></button>
+    </div>
+
+    <form id="section-main-container" class="section-main-container" style="display: none;">
+
+        <div class="support-container">
+
+            <h3>ℹ️ Dados Pessoais</h3>
+            <p class="first-observation"><strong>⚠️ Observação:</strong> Utilize o formulário abaixo preenchendo todas
+                as informações solicitadas com atenção para registrar corretamente o paciente.</p>
+            <div class="section-grid">
+                <!-- Nome completo -->
+                <label for="Nome completo" title="Nome Completo">
+                    Nome completo:
+                    <input type="text" name="nomeCompleto" aria-label="Nome Completo" required />
+                </label>
+
+                <!-- Nome da mãe -->
+                <label title="Nome da Mãe">
+                    Mãe:
+                    <input type="text" name="nomeMae" aria-label="Nome da Mãe" required />
+                </label>
+
+                <!-- Nome do pai (opcional) -->
+                <label title="Nome do Pai">
+                    <div>Pai <span style="font-weight: normal;">(opcional):</span></div>
+                    <input type="text" name="nomePai" aria-label="Nome do pai (opcional)" />
+                </label>
+
+                <!-- Sexo -->
+                <label title="Sexo">
+                    Sexo:
+                    <select name="sexo" aria-label="Sexo" required>
+                        <option value="">Selecione</option>
+                        <option>Masculino</option>
+                        <option>Feminino</option>
+                        <option>Outro</option>
+                    </select>
+                </label>
+
+                <!-- Estado Civil -->
+                <label title="Estado Civil">
+                    Estado civil:
+                    <select name="estadoCivil" aria-label="Estado Civil" required>
+                        <option value="">Selecione</option>
+                        <option>Solteiro(a)</option>
+                        <option>Casado(a)</option>
+                        <option>Divorciado(a)</option>
+                        <option>Viúvo(a)</option>
+                    </select>
+                </label>
+
+                <!-- Data de nascimento -->
+                <label title="Data de Nascimento">
+                    Data de nascimento:
+                    <input type="date" name="dataNascimento" aria-label="Data de Nascimento" required />
+                </label>
+
+                <!-- Identidade -->
+                <label title="RG (Identidade)">
+                    RG (Identidade):
+                    <input type="text" name="rg" aria-label="RG (Identidade)" required placeholder="Digite o RG"
+                        maxlength="12" />
+                </label>
+
+                <!-- Órgão emissor do RG -->
+                <label title="Órgão Emissor do RG">
+                    Órgão emissor:
+                    <input type="text" name="orgaoEmissor" aria-label="Órgão Emissor do RG" maxlength="6" required
+                        placeholder="Ex: SSP" />
+                </label>
+
+                <!-- CPF -->
+                <label title="CPF">
+                    CPF:
+                    <input type="text" name="cpf" aria-label="CPF" required placeholder="000.000.000-00"
+                        maxlength="14" />
+                </label>
+
+                <!-- Profissão Opcional -->
+                <label title="Profissão">
+                    <div>Profissão <span style="font-weight: normal;">(opcional):</span></div>
+                    <input type="text" name="profissao" aria-label="Profissão" />
+                </label>
+
+                <!-- Escolaridade -->
+                <label title="Escolaridade">
+                    Escolaridade:
+                    <select name="escolaridade" aria-label="Escolaridade" required>
+                        <option value="">Selecione</option>
+                        <option>Ensino Fundamental</option>
+                        <option>Ensino Médio Incompleto</option>
+                        <option>Ensino Médio Completo</option>
+                        <option>Superior Incompleto</option>
+                        <option>Superior Completo</option>
+                        <option>Pós-graduação</option>
+                    </select>
+                </label>
+
+                <!-- Raça/Cor -->
+                <label title="Raça/Cor">
+                    Raça/Cor:
+                    <select name="raca" aria-label="Raça/Cor" required>
+                        <option value="">Selecione</option>
+                        <option>Branca</option>
+                        <option>Parda</option>
+                        <option>Preta</option>
+                        <option>Amarela</option>
+                        <option>Indígena</option>
+                    </select>
+                </label>
+
+                <!-- Nacionalidade -->
+                <label title="Nacionalidade">
+                    Nacionalidade:
+                    <input type="text" name="nacionalidade" value="Brasileira" aria-label="Nacionalidade" required />
+                </label>
+
+                <!-- Estado de Naturalidade -->
+                <label title="Estado de Naturalidade">
+                    Estado de Naturalidade:
+                    <select name="estadoNaturalidade" class="estadoSelect" required></select>
+                </label>
+
+                <!-- UF de Naturalidade -->
+                <label title="UF de Naturalidade">
+                    UF:
+                    <input type="text" name="ufNaturalidade" class="ufSelect" aria-label="UF de Naturalidade"
+                        maxlength="2" size="2" placeholder="UF" disabled />
+                </label>
+
+                <!-- Cidade de Naturalidade -->
+                <label title="Cidade de Naturalidade">
+                    Cidade de Naturalidade:
+                    <select name="cidadeNaturalidade" class="cidadeSelect" required></select>
+                </label>
+
+                <!-- Data do laudo -->
+                <label title="Data do último laudo emitido">
+                    <div>Data do laudo:</div>
+                    <input type="date" aria-label="Data do último laudo emitido" name="dataLaudo" disabled />
+                </label>
+            </div>
+
+            <h3>📬 Endereço</h3>
+            <div class="section-grid">
+                <!-- Rua -->
+                <label title="Rua / Logradouro">
+                    Rua / Logradouro:
+                    <input type="text" name="rua" aria-label="Rua / Logradouro" required />
+                </label>
+                <!-- Número -->
+                <label title="Número">
+                    Número:
+                    <input type="text" name="numero" aria-label="Número" required />
+                </label>
+                <!-- Complemento (Opcional) -->
+                <label title="Complemento">
+                    <div>Complemento <span style="font-weight: normal;">(opcional):</span></div>
+                    <input type="text" name="complemento" aria-label="Complemento" placeholder="Casa, Apto, Bloco..." />
+                </label>
+                <!-- Bairro -->
+                <label title="Bairro do Endereço">
+                    Bairro:
+                    <input type="text" name="bairroEndereco" aria-label="Bairro do Endereço" required />
+                </label>
+                <!-- Estado -->
+                <label title="Estado">
+                    Estado:
+                    <select name="estadoEndereco" class="estadoSelect" required>
+                        <option value="">Selecione o estado</option>
+                    </select>
+                </label>
+                <!-- UF -->
+                <label title="UF de Endereço">
+                    UF:
+                    <input type="text" name="ufEndereço" class="ufSelect" aria-label="UF de Endereço" maxlength="2"
+                        size="2" placeholder="UF" disabled />
+                </label>
+                <!-- Cidade -->
+                <label title="Cidade Endereço">
+                    Cidade:
+                    <select name="cidadeEndereco" class="cidadeSelect" required>
+                        <option value="">Selecione a cidade</option>
+                    </select>
+                </label>
+                <!-- CEP -->
+                <label title="CEP">
+                    CEP:
+                    <input type="text" name="cep" placeholder="00000-000" aria-label="CEP" maxlength="9" required />
+                </label>
+            </div>
+
+            <h3>📞 Contato</h3>
+            <div class="section-grid">
+                <!-- Telefone principal -->
+                <label title="Telefone Principal">
+                    Telefone:
+                    <input type="tel" name="telefone" placeholder="(00) 00000-0000" aria-label="Telefone Principal"
+                        maxlength="15" required />
+                </label>
+                <!-- Tipo de Contato (Opcional) -->
+                <label title="Tipo de Contato">
+                    <div>Tipo de contato <span style="font-weight: normal;">(opcional):</span></div>
+                    <select name="tipoDeContato" aria-label="Tipo de Contato">
+                        <option value="">Selecione</option>
+                        <option>Residencial</option>
+                        <option>Comercial</option>
+                        <option>WhatsApp</option>
+                    </select>
+                </label>
+                <!-- Telefone adicional -->
+                <label title="Telefone Adicional">
+                    <div>Telefone adicional <span style="font-weight: normal;">(opcional):</span></div>
+                    <input type="tel" name="telefoneAdicional" placeholder="(00) 00000-0000" />
+                </label>
+                <!-- E-mail (opcional) -->
+                <label title="E-mail (Opcional)">
+                    <div>E-mail <span style="font-weight: normal;">(opcional):</span></div>
+                    <input type="email" name="email" placeholder="exemplo@email.com" />
+                </label>
+                <!-- Site ou redes sociais (opcional) -->
+                <label title="Site ou redes sociais (Opcional)">
+                    <div>Site ou redes sociais <span style="font-weight: normal;">(opcional):</span></div>
+                    <input type="text" name="siteOuRedesSociais" aria-label="Site ou redes sociais (Opcional)"
+                        placeholder="Ex: www.site.com ou @usuario" />
+                </label>
+            </div>
+
+            <h3>🧠 Avaliação Psicológica</h3>
+            <div class="section-grid">
+                <!-- Tipo de Laudo -->
+                <label title="Tipo de Laudo">
+                    Tipo de laudo:
+                    <select name="tipoLaudo" id="tipoLaudo" aria-label="Tipo de Laudo">
+                        <option value="">Selecione</option>
+                        <option>Aptidão Psicológica</option>
+                        <option>Avaliação para Posse de Arma</option>
+                        <option>Avaliação Clínica</option>
+                        <option>Avaliação para Vigilantes</option>
+                        <option>Processo Judicial</option>
+                    </select>
+                </label>
+
+                <!-- Container dos campos que serão habilitados após o usuário escolher um tipo de laudo -->
+                <div class="fieldsHideShow">
+
+                    <!-- Motivo da Avaliação -->
+                    <label class="full-width" title="Motivo da Avaliação">
+                        Motivo da avaliação:
+                        <textarea name="motivoAvaliacao" rows="2" aria-label="Motivo da Avaliação"
+                            placeholder="Descreva o motivo da avaliação"></textarea>
+                    </label>
+
+                    <!-- Data da Avaliação -->
+                    <label title="Data da Avaliação">
+                        Data da avaliação:
+                        <input type="date" name="dataAvaliacao" aria-label="Data da Avaliação" />
+                    </label>
+
+                    <!-- Instrumentos/Testes aplicados -->
+                    <label class="full-width" title="Testes aplicados">
+                        Testes aplicados:
+                        <textarea name="testesAplicados" rows="3" aria-label="Testes aplicados"
+                            placeholder="Ex: HTP, Palográfico, BPR-5, etc."></textarea>
+                    </label>
+                    <!-- Observações comportamentais -->
+                    <label class="full-width" title="Observações comportamentais">
+                        <div>Observações comportamentais <span style="font-weight: normal;">(opcional):</span></div>
+                        <textarea name="observacoesComportamentais" aria-label="Observações comportamentais" rows="3"
+                            placeholder="Descreva observações comportamentais relevantes"></textarea>
+                    </label>
+                    <!-- Histórico clínico relevante -->
+                    <label class="full-width" title="Histórico clínico relevante">
+                        <div>Histórico clínico relevante <span style="font-weight: normal;">(opcional):</span></div>
+                        <textarea name="historicoClinico" aria-label="Histórico clínico relevante" rows="3"
+                            placeholder="Informe histórico clínico relevante"></textarea>
+                    </label>
+                    <!-- CID / Diagnóstico -->
+                    <label title="CID / Diagnóstico">
+                        CID (diagnóstico):
+                        <input type="text" name="cid" aria-label="CID / Diagnóstico"
+                            placeholder="Ex: F41.1 - Transtorno de Ansiedade" required />
+                    </label>
+                    <!-- Observações adicionais -->
+                    <label class="full-width" title="Observações adicionais">
+                        <div>Observações adicionais <span style="font-weight: normal;">(opcional):</span></div>
+                        <textarea name="observacoesAdicionais" aria-label="Observações adicionais" rows="2"
+                            placeholder="Inclua observações relevantes, se houver"></textarea>
+                    </label>
+                    <!-- Resultado da Avaliação -->
+                    <label class="full-width" title="Resultado da avaliação">
+                        Resultado da avaliação:
+                        <select name="resultadoAvaliacao" id="resultadoAvaliacao">
+                            <option value="">Selecione</option>
+                            <option value="Apto">Apto</option>
+                            <option value="Inapto">Inapto</option>
+                            <option value="Apto com restrições">Apto com restrições</option>
+                        </select>
+                    </label>
+                    <!-- Descrever as restrições -->
+                    <div class="campoRestricoes">
+                        <label class="full-width" title="Descreva as restrições">
+                            Descreva as restrições:
+                            <textarea name="restricoes" rows="3" cols="30" aria-label="Descreva as restrições"
+                                placeholder="Ex: Uso apenas em ambiente administrativo, sem porte noturno, etc."></textarea>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <h3>✅ Consentimento do Paciente</h3>
+            <div class="consentimento">
+                <input type="checkbox" name="consentimento"
+                    title="Marque está caixa se o paciente assinou o termo de consentimento informado."
+                    required />Confirmo
+                que o paciente assinou o termo de
+                consentimento informado.
+                <label for="consentimento" class="full-width"
+                    aria-label="Confirmo que o paciente assinou o termo de consentimento informado."></label>
+            </div>
+
+            <h3>🧑🏽‍⚕️ Dados do Profissional</h3>
+            <div class="section-grid">
+                <!-- Nome do profissional -->
+                <label title="Nome do profissional">
+                    Nome do profissional responsável:
+                    <!-- <input type="text" name="nomeProfissional" aria-label="Nome do profissional" /> -->
+                    <select name="nomeProfissional" id="nomeProfissional">
+                        <option value="">Selecione o profissional</option>
+                        <option value="Mario Fontes">Mario Fontes</option>
+                    </select>
+                </label>
+
+                <div class="showDataPersonal fieldsHideShow">
+                    <!-- Especialidade -->
+                    <label title="Especialidade Profissional">
+                        Especialidade:
+                        <input type="text" name="especialidadeProfissional" id="especialidadeProfissional"
+                            aria-label="Especialidade Profissional" value="Psicologia do Trabalho e das Organizações"
+                            disabled />
+                    </label>
+                    <!-- Número do CRP -->
+                    <label title="Número do CRP">
+                        CRP:
+                        <input type="text" name="crp" aria-label="Número do CRP" placeholder="Ex: 03/123456"
+                            value="03/123456" disabled />
+                    </label>
+                    <!-- Estado do CRP -->
+                    <label title="Estado do CRP">
+                        Estado:
+                        <input type="text" name="estadoCrp" maxlength="2" aria-label="Estado do CRP"
+                            value="Rio Grande do Norte" disabled />
+                    </label>
+                    <!-- UF do CRP -->
+                    <label title="UF do CRP">
+                        UF:
+                        <input type="text" name="ufCrp" maxlength="2" aria-label="UF CRP" value="RN" disabled />
+                    </label>
+                </div>
+            </div>
+
+            <h3>🏥 Dados da Clínica</h3>
+            <div class="section-grid">
+                <!-- Nome da clínica -->
+                <label class="full-width" title="Nome da Clínica">
+                    Nome da clínica ou consultório:
+                    <!-- <input type="text" name="nomeClinica" aria-label="Nome da Clínica" disabled /> -->
+                    <select name="nomeClinica" id="nomeClinica">
+                        <option value="">Selecione a clínica</option>
+                        <option value="Santa Casa">Santa Casa da Misericórdia</option>
+                    </select>
+                </label>
+
+                <div class="showClinicalData fieldsHideShow">
+                    <!-- CNPJ da clínica -->
+                    <label title="CNPJ">
+                        CNPJ da clínica:
+                        <input type="text" name="cnpjClinica" aria-label="CNPJ" placeholder="00.000.000/0000-00"
+                            value="08.968.886/0001-99" disabled />
+                    </label>
+                    <!-- Estado da emissão -->
+                    <label title="Estado da Clínica">
+                        Estado:
+                        <input type="text" name="estadoClinica" aria-label="Estado (UF)" maxlength="2"
+                            value="Rio Grande do Norte" disabled />
+                    </label>
+                    <!-- UF da Clínica -->
+                    <label title="UF de Clínica">
+                        UF:
+                        <input type="text" name="ufClinica" class="ufSelect" aria-label="UF de Clínica" maxlength="2"
+                            size="2" placeholder="UF" value="RN" disabled />
+                    </label>
+                    <!-- Cidade da emissão -->
+                    <label title="Cidade da Emissão">
+                        Cidade:
+                        <input type="text" name="cidadeClinica" aria-label="Cidade da Emissão"
+                            value="Governador Dix-Sept Rosado" disabled />
+                    </label>
+                </div>
+            </div>
+
+        </div>
+    </form>
+</section>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Cadastro | iCouLaudos</title>
+        <link rel="stylesheet" href="../../config/css/reset.css" />
+        <link rel="stylesheet" href="../../config/css/variables.css" />
+        <link rel="stylesheet" href="user-registration.css" />
+    </head>
+    <body>
+        <main class="registration-container">
+            <section class="registration-card">
+                <h1>Crie sua conta no iCouLaudos</h1>
+                <form id="registration-form">
+                    <div class="input-group">
+                        <input type="text" id="nome" placeholder="Nome completo" required />
+                        <span class="error-message" id="nome-error"></span>
+                    </div>
+
+                    <div class="input-group">
+                        <input type="email" id="email" placeholder="E-mail" required />
+                        <span class="error-message" id="email-error"></span>
+                    </div>
+
+                    <div class="input-group">
+                        <input type="password" id="password" placeholder="Senha" required />
+                        <span class="error-message" id="password-error"></span>
+                    </div>
+
+                    <div class="input-group">
+                        <input type="password" id="confirm-password" placeholder="Confirmar senha" required />
+                        <span class="error-message" id="confirm-password-error"></span>
+                    </div>
+
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="termos" required />
+                        <label for="termos">Li e concordo com os <a href="#">Termos de Uso</a></label>
+                        <span class="error-message" id="termos-error"></span>
+                    </div>
+
+                    <button type="submit" id="register-button">Cadastrar</button>
+                </form>
+            </section>
+        </main>
+
+        <script type="module" src="user-registration.js"></script>
+    </body>
+</html>

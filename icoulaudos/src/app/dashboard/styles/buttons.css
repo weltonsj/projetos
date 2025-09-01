@@ -1,0 +1,87 @@
+.show-section-button {
+    padding: 0.75rem 0.65rem;
+    font-size: 0.65rem;
+    font-weight: bold;
+    background: var(--info-color);
+    color: var(--white);
+    border: none;
+    border-bottom: 3px solid var(--primary-color-hover);
+    border-radius: var(--radius-4);
+    box-shadow: -2px 5px 5px rgba(0, 0, 0, 0.12);
+    cursor: pointer;
+    transition: background 0.2s, box-shadow 0.2s;
+    margin: 1.5rem auto;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.show-section-button:active {
+    filter: brightness(1.5);
+    border-bottom: 2.5px solid var(--primary-color-hover);
+    background: var(--primary-color);
+}
+
+.show-section-button:hover {
+    filter: brightness(1.15);
+}
+
+.action-button {
+    font-size: 0.65rem;
+    padding: 0.6rem 0.65rem;
+    font-weight: 700;
+    border: none;
+    border-radius: var(--radius-4);
+    font-family: inherit;
+    letter-spacing: 0.03rem;
+    color: var(--white);
+    box-shadow: var(--shadow-btn);
+    cursor: pointer;
+    transition: background 0.3s, box-shadow 0.3s ease;
+}
+
+.action-button:hover {
+    filter: brightness(1.1);
+}
+
+.btn-green {
+    background-color: var(--secondary-color);
+    /* border-left: 1px solid var(--secondary-color-hover);
+    border-bottom: 1px solid var(--secondary-color-hover); */
+}
+
+.btn-blue {
+    background-color: var(--info-color);
+    /* border-right: 1px solid var(--info-color-hover);
+    border-bottom: 1px solid var(--info-color-hover); */
+}
+
+.btn-red {
+    background-color: var(--danger-color);
+    /* border: 1px solid var(--danger-color-hover); */
+}
+
+.btn-gray {
+    color: var(--primary-color);
+    background-color: var(--gray-light);
+    /* border-left: 1px solid var(--text-color);
+    border-bottom: 1px solid var(--text-color); */
+}
+
+.btn-edit,
+.btn-print,
+.btn-delete {
+    width: 2rem;
+    height: 2rem;
+    cursor: pointer;
+}
+
+@media (max-width: 668px) {
+    .action-button {
+        justify-content: center;
+        /* margin-bottom: 0.15rem; */
+        height: 2.375rem;
+    }
+}

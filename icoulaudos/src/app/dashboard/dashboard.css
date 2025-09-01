@@ -1,0 +1,211 @@
+html {
+    scroll-behavior: smooth;
+    font-size: clamp(14px, 1vw + 0.5rem, 16px);
+}
+
+body {
+    background: var(--white);
+    font-family: var(--font-main);
+    color: var(--text-color);
+}
+
+body,
+html {
+    overflow-y: hidden;
+}
+
+h1 {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    font-weight: 800;
+}
+
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(var(--el-color-primary-light-5), var(--el-color-primary-light-7));
+    padding: 1rem 2rem;
+    color: var(--white);
+    box-shadow: var(--shadow-default);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    height: 70px;
+}
+
+.dashboard-header .logo {
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+
+.user-profile {
+    width: 60px;
+    height: 60px;
+    position: relative; /* para posicionar a coroa */
+}
+
+.user-profile img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    cursor: pointer;
+    object-fit: cover; /* garante enquadramento da foto */
+    /* border: 3px solid var(--primary-color-hover); */
+}
+
+/* Coroa para contas premium */
+.user-profile .crown {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    font-size: 16px;
+    display: none;
+}
+.user-profile.premium .crown { display: block; }
+
+/* Info discreta ao lado do avatar */
+.account-info {
+    margin-left: 0.5rem;
+    color: var(--white);
+    opacity: 0.9;
+    font-size: 0.72rem;
+    line-height: 1.1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.dashboard-menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    gap: 0.45rem;
+    padding: 0.5rem;
+    background: var(--el-color-primary-light-8);
+    border-right: 1px solid var(--gray);
+    box-shadow: var(--shadow-default);
+    width: 8.25rem;
+    position: fixed;
+    left: 0;
+    top: 85px;
+    height: calc(88.75vh - 60px);
+    border-radius: var(--radius-4);
+    overflow-y: hidden;
+    z-index: 999;
+}
+
+.dashboard-menu button {
+    font-size: 0.625rem;
+    padding: 0.325rem 0 0.325rem 0.325rem;
+    border: none;
+    border-left: 2px solid var(--primary-color);
+    border-bottom: 2px solid var(--primary-color);
+    background: var(--white);
+    color: var(--primary-color);
+    border-radius: var(--radius-8);
+    cursor: pointer;
+    font-weight: 400;
+    text-align: left;
+    transition: background 0.2s, color 0.2s;
+}
+
+.dashboard-menu button:hover {
+    background: var(--primary-color-hover);
+    color: var(--white);
+    font-weight: 700;
+}
+
+.dashboard-menu button:active {
+    color: var(--white);
+    background-color: var(--primary-color);
+}
+
+.dashboard-content {
+    text-align: center;
+    margin-left: 8.95rem;
+    margin-top: 85px;
+    min-height: calc(100vh - 60px);
+    box-sizing: border-box;
+}
+
+.hamburger {
+    display: none;
+    font-size: 2rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--white);
+    margin-left: auto;
+}
+
+/* Responsivo para telas menores */
+@media (max-width: 768px) {
+    body,
+    html {
+        overflow-y: auto;
+    }
+
+    .dashboard-header {
+        display: grid;
+        grid-template-columns: 1fr 4fr 1fr;
+        padding: 0 15px;
+        justify-items: end;    
+    }
+
+    .dashboard-menu {
+        display: grid;
+        grid-template-rows: auto;
+        justify-content: end;
+        border: none;
+        background: transparent;
+        margin-top: 1.75rem;
+        height: 40rem;
+        position: fixed;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+        box-shadow: none;
+        transform: translateY(-30px);
+        opacity: 0;
+        pointer-events: none;
+        transition: transform 0.3s cubic-bezier(.4, 0, .2, 1), opacity 0.3s cubic-bezier(.4, 0, .2, 1);
+        height: 100hv;
+    }
+
+    .dashboard-menu.open {
+        display: grid;
+        grid-template-rows: auto;
+        transform: translateY(0);
+        opacity: 1;
+        pointer-events: auto;
+        background: transparent;
+        justify-content: end;
+        gap: 5px;
+        box-shadow: none;
+    }
+
+    .dashboard-menu.open button {
+        background: var(--white);
+    }
+
+    .dashboard-content {
+        margin-left: 0;
+        margin-top: 60px;
+        padding: 1rem;
+    }
+
+    .dashboard-content h1 {
+        font-size: 1.75rem;
+        font-weight: 800;
+        padding-top: 1rem;
+    }
+
+    .hamburger {
+        display: block;
+        margin-left: 0;
+    }
+}

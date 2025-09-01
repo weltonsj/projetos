@@ -1,0 +1,244 @@
+<style>
+    /* Estilos específicos da seção Perfil, usando variáveis do projeto */
+    .perfil-header {
+      text-align: center;
+      padding: 0.5rem 0 1rem;
+    }
+    .perfil-header h2 {
+      color: var(--primary-color);
+      font-weight: 800;
+      margin-bottom: 0.25rem;
+    }
+    .perfil-header p {
+      color: var(--el-color-info);
+      font-size: 0.95rem;
+    }
+
+    .perfil-content {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 1rem;
+      align-items: start;
+    }
+
+    .perfil-left {
+      background: var(--white);
+      border: 1px solid var(--el-color-info-light-8);
+      border-radius: var(--radius-6);
+      box-shadow: var(--shadow-default);
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .perfil-photo-frame {
+      width: 220px;
+      height: 220px;
+      border: 2px dashed var(--el-color-info-light-7);
+      border-radius: var(--radius-6);
+      background: var(--el-bg-color);
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      box-shadow: var(--shadow-default);
+    }
+    .perfil-photo-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: none;
+    }
+    .perfil-photo-placeholder {
+      color: var(--el-color-info);
+      font-size: 0.85rem;
+    }
+
+    .perfil-left #perfil-nome {
+      font-weight: 700;
+      color: var(--primary-color);
+      margin-top: 0.25rem;
+      text-align: center;
+    }
+
+    .perfil-left .perfil-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      width: 100%;
+    }
+    .perfil-left .perfil-actions .action-button {
+      width: 100%;
+      justify-content: center;
+      height: 2.5rem;
+    }
+
+    .perfil-right {
+      background: var(--white);
+      border: 1px solid var(--el-color-info-light-8);
+      border-radius: var(--radius-6);
+      box-shadow: var(--shadow-default);
+      padding: 1rem;
+    }
+
+    .perfil-view-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(220px, 1fr));
+      gap: 0.75rem 1rem;
+    }
+    .perfil-view-grid label {
+      display: flex;
+      flex-direction: column;
+      font-size: 0.75rem;
+      color: var(--primary-color);
+      margin: 0;
+    }
+    .perfil-view-grid input {
+      margin-top: 0.25rem;
+      padding: 0.55rem 0.6rem;
+      font-size: 0.9rem;
+      border: 1px solid var(--el-color-info-light-8);
+      border-radius: var(--radius-4);
+      color: var(--text-color);
+      background: var(--white);
+      box-shadow: var(--shadow-default);
+    }
+    .perfil-view-grid input:disabled {
+      background: var(--el-bg-color-page);
+      color: var(--el-text-color-regular);
+    }
+    .perfil-view-grid .full {
+      grid-column: 1 / -1;
+    }
+
+    /* Responsividade */
+    @media (max-width: 980px) {
+      .perfil-content {
+        grid-template-columns: 1fr;
+      }
+      .perfil-left {
+        max-width: 420px;
+        margin: 0 auto;
+      }
+      .perfil-view-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+
+<!-- Layout da seção Meu Perfil -->
+<section class="section-main">
+  <div class="perfil-header">
+    <h2>👤 Meu Perfil</h2>
+    <p>Gerencie suas informações profissionais e da clínica. Edite seus dados com segurança quando necessário.</p>
+  </div>
+
+  <div class="section-main-container">
+    <div class="perfil-content">
+      <!-- Coluna esquerda: Foto, nome e ações -->
+      <aside class="perfil-left">
+        <div class="perfil-photo-frame">
+          <img id="preview-fotoProfissional" alt="Foto do profissional" />
+          <span class="perfil-photo-placeholder">Sem foto</span>
+        </div>
+
+        <h3 id="perfil-nome">Usuário</h3>
+
+        <div class="perfil-actions">
+          <input type="file" id="input-fotoProfissional" accept="image/png,image/jpeg" style="display:none" />
+          <button type="button" class="action-button btn-blue perfil-foto-upload-btn">📷 Enviar/Alterar foto</button>
+          <button type="button" class="action-button btn-green" id="btn-editar-perfil">✏️ Editar Perfil</button>
+          <small class="perfil-photo-hint" style="color:var(--el-color-info);opacity:.9">Recomendado: 600×600 px • PNG/JPEG • até 1 MB</small>
+        </div>
+      </aside>
+
+      <!-- Coluna direita: Visualização somente leitura -->
+      <form id="perfil-form" class="perfil-right perfil-view-grid" autocomplete="off">
+        <label>
+          Nome completo
+          <input type="text" name="nome" placeholder="Seu nome completo" disabled />
+        </label>
+        <label>
+          CRP
+          <input type="text" name="crp" placeholder="Nº CRP" disabled />
+        </label>
+        <label>
+          CPF
+          <input type="text" name="cpf" placeholder="CPF" disabled />
+        </label>
+        <label>
+          Telefone
+          <input type="tel" name="telefone" placeholder="(00) 00000-0000" disabled />
+        </label>
+        <label class="full">
+          E-mail
+          <input type="email" name="email" placeholder="email@exemplo.com" disabled />
+        </label>
+        <label class="full">
+          Especialidade
+          <input type="text" name="especialidade" placeholder="Ex: Psicologia Clínica" disabled />
+        </label>
+
+        <label>
+          Nome da clínica
+          <input type="text" name="nomeClinica" placeholder="Nome da clínica" disabled />
+        </label>
+        <label>
+          CNPJ
+          <input type="text" name="cnpjClinica" placeholder="00.000.000/0000-00" disabled />
+        </label>
+        <label>
+          Telefone fixo/WhatsApp
+          <input type="tel" name="telefoneClinica" placeholder="(00) 00000-0000" disabled />
+        </label>
+        <label>
+          E-mail da clínica
+          <input type="email" name="emailClinica" placeholder="clinca@exemplo.com" disabled />
+        </label>
+
+        <label class="full">
+          Endereço completo
+          <input type="text" name="enderecoClinica" placeholder="Rua, número e complemento" disabled />
+        </label>
+        <label>
+          Bairro
+          <input type="text" name="bairroClinica" placeholder="Bairro" disabled />
+        </label>
+        <label>
+          Cidade
+          <input type="text" name="cidadeClinica" placeholder="Cidade" disabled />
+        </label>
+        <label>
+          UF
+          <input type="text" name="ufClinica" placeholder="UF" disabled />
+        </label>
+        <label>
+          CEP
+          <input type="text" name="cepClinica" placeholder="00000-000" disabled />
+        </label>
+
+        <label class="full">
+          Modelo de assinatura
+          <input type="text" name="modeloAssinatura" placeholder="Texto da assinatura no laudo" disabled />
+        </label>
+        <label class="full">
+          Modelo de rodapé
+          <input type="text" name="modeloRodape" placeholder="Rodapé para os documentos" disabled />
+        </label>
+        <label class="full">
+          Cores e identidade visual
+          <input type="text" name="corPrimaria" placeholder="Hex da cor primária (ex: #1E4D6B)" disabled />
+        </label>
+        <label>
+          Site
+          <input type="url" name="site" placeholder="https://www.seusite.com" disabled />
+        </label>
+        <label class="full">
+          Redes sociais
+          <input type="text" name="redesSociais" placeholder="@instagram, /facebook, LinkedIn..." disabled />
+        </label>
+      </form>
+    </div>
+  </div>
+</section>

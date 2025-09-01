@@ -1,0 +1,711 @@
+<style>
+    /* ===============================
+       h2,h2 e p
+    =============================== */
+    #p-principal {
+        padding-bottom: 0.5rem;
+    }
+
+    #p-editar {
+        padding-bottom: 1rem;
+    }
+
+    /* ===============================
+       Labels e inputs
+    =============================== */
+    .section-main label {
+        margin: 1rem 0 0 0.5rem;
+        font-size: 0.75rem;
+    }
+
+    .busca-observacao {
+        font-size: 0.75rem;
+        margin: 0.25rem 0;
+    }
+
+    input[type="text"][name="campoBusca"] {
+        width: 250px;
+        min-width: 100px;
+        max-width: 100%;
+    }
+
+    /* ===============================
+       Grid e ações
+    =============================== */
+    .section-grid-edit {
+        display: grid;
+        grid-template-columns: 1fr 4fr;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 0;
+        padding: 1rem 0;
+        gap: 0.75rem;
+    }
+
+    .section-actions-btn {
+        margin-bottom: 0;
+    }
+
+    .section-actions-btn-edit {
+        display: flex;
+        gap: 0.5rem;
+        padding: 0 0.5rem 0 0;
+        margin-bottom: 0;
+        background: none;
+        box-shadow: none;
+        align-content: flex-end;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    #containe-btnImprimirLista {
+        text-align: right;
+        padding: 0.35rem 0.5rem;
+        border-radius: var(--radius-4);
+        background: var(--gray);
+    }
+
+    #btnImprimirLista {
+        border: none;
+        border-bottom: 1px solid var(--text-color);
+    }
+
+    /* ===============================
+       Container principal
+    =============================== */
+    .section-main {
+        align-items: center;
+    }
+
+    .section-main-container {
+        overflow: visible;
+        border-radius: var(--radius-4);
+    }
+
+    /* ===============================
+       Lista de pacientes
+    =============================== */
+    .lista-pacientes-container {
+        position: relative;
+        /* necessário para sticky */
+        box-sizing: border-box;
+        width: 100%;
+        height: 100%;
+        max-height: 45vh;
+        overflow-y: auto;
+        overflow-x: auto;
+        /* scroll horizontal quando necessário */
+        -webkit-overflow-scrolling: touch;
+        padding: 0;
+        margin-top: 0.5rem;
+        background: var(--white);
+        border: 1px solid var(--gray);
+        border-radius: var(--radius-4);
+    }
+
+    /* Tabela desktop */
+    .lista-pacientes-container .table-pacientes {
+        display: table;
+        width: 100%;
+        table-layout: fixed;
+        border-collapse: separate;
+        /* evita bug do sticky */
+        border-spacing: 0;
+        overflow: visible;
+        /* necessário p/ sticky */
+    }
+
+    .lista-pacientes-container .table-pacientes thead {
+        display: table-header-group;
+    }
+
+    .lista-pacientes-container .table-pacientes thead th {
+        position: sticky;
+        top: 0;
+        z-index: 30;
+        background: linear-gradient(var(--primary-color));
+        color: #fff;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
+    }
+
+    .table-pacientes th,
+    .table-pacientes td {
+        padding: 0.35rem 0.25rem;
+        text-align: left;
+        font-size: 0.75rem;
+        border-bottom: 0.5px solid var(--gray);
+    }
+
+    .table-pacientes tbody>tr>td[data-label="Ações"] button[class="btn-edit"],
+    .table-pacientes tbody>tr>td[data-label="Ações"] button[class="btn-print"],
+    .table-pacientes tbody>tr>td[data-label="Ações"] button[class="btn-delete"] {
+        border: none;
+        background: var(--white);
+    }
+
+    .table-pacientes tbody>tr>td[data-label="Ações"] button[class="btn-edit"]:hover,
+    .table-pacientes tbody>tr>td[data-label="Ações"] button[class="btn-print"]:hover,
+    .table-pacientes tbody>tr>td[data-label="Ações"] button[class="btn-delete"]:hover {
+        filter: brightness(1.1);
+        box-shadow: var(--shadow-btn);
+        background: var(--gray);
+    }
+
+    .table-pacientes col.col-id,
+    .table-pacientes col.col-data-nasc,
+    .table-pacientes col.col-status,
+    .table-pacientes col.col-acoes {
+        width: calc(8vw);
+    }
+
+    .table-pacientes th:nth-child(10) {
+        text-align: center;
+    }
+
+    .table-pacientes td:nth-child(10) {
+        padding: 0;
+        text-align: center;
+    }
+
+    /* ===============================
+       Formulário de edição
+    =============================== */
+    #form-editar-paciente {
+        position: fixed;
+        top: 260px;
+        box-sizing: border-box;
+        max-width: calc(87.7vw);
+        max-height: calc(48.5vh);
+        overflow-y: auto;
+        overflow-x: hidden;
+        padding: -0rem 0 1rem 0;
+        -webkit-overflow-scrolling: touch;
+        /* border: 1px solid red; */
+    }
+
+    /* ===============================
+       Responsividade
+    =============================== */
+
+    /* Tabela em modo card (mobile) */
+    @media (max-width: 1230px) {
+        .table-pacientes {
+            display: block;
+            width: 100%;
+            overflow-x: auto;
+            border-radius: 0;
+        }
+
+        .table-pacientes thead {
+            display: none;
+        }
+
+        .table-pacientes tr {
+            display: block;
+            margin-bottom: 1.2rem;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+            background: #fff;
+            padding: 0.7rem 0.5rem;
+        }
+
+        .table-pacientes td {
+            display: block;
+            padding: 0.5rem 0.7rem;
+            text-align: left;
+            position: relative;
+            font-size: 1rem;
+        }
+
+        .table-pacientes td::before {
+            content: attr(data-label);
+            font-weight: bold;
+            display: block;
+            margin-bottom: 0.2rem;
+            color: var(--primary-color, #1a237e);
+        }
+
+        .lista-pacientes-container .table-pacientes {
+            /* min-width: 0; */
+            max-width: 90vw;
+        }
+
+        .lista-pacientes-container .table-pacientes thead {
+            display: none;
+        }
+
+        .table-pacientes td:nth-child(10) {
+            padding-bottom: 10px;
+        }
+
+        .table-pacientes td:nth-child(10)>button {
+            height: 2.5rem;
+            width: 2.5rem;
+            box-shadow: 1.5px 1.5px 2px rgba(0, 0, 0, 0.375);
+        }
+
+        .table-pacientes td:nth-child(10)>button[class="btn-delete"] {
+            margin-left: 5px;
+        }
+
+        colgroup {
+            display: flex;
+        }
+    }
+
+    /* Ajustes em telas até 900px */
+    @media (max-width: 900px) {
+        .lista-pacientes-container {
+            max-height: calc(55vh);
+        }
+
+        #form-editar-paciente {
+            max-height: calc(65vh);
+        }
+
+        #form-editar-paciente .section-grid {
+            grid-template-columns: 1fr !important;
+        }
+    }
+
+    /* Ajustes em telas até 668px */
+    @media (max-width: 668px) {
+
+        .section-grid-edit .busca-label,
+        .section-grid-edit #campoBusca {
+            width: 55vw;
+            min-width: 120px;
+            max-width: 100%;
+        }
+    }
+
+    /* Ajustes em telas até 600px */
+    @media (max-width: 600px) {
+        .section-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .section-grid-edit {
+            align-items: end;
+        }
+
+        .section-main form:nth-of-type(2) input[type="text"],
+        .section-main form:nth-of-type(2) input[type="date"],
+        .section-main form:nth-of-type(2) input[type="tel"],
+        .section-main form:nth-of-type(2) input[type="email"],
+        .section-main form:nth-of-type(2) select {
+            width: 100%;
+            min-width: 100px;
+            max-width: 250px;
+            color: #444;
+        }
+
+        .support-container {
+            margin-right: 0.4rem;
+        }
+
+        .lista-pacientes-container,
+        #form-editar-paciente {
+            max-height: calc(44vh);
+            padding: 0.4rem;
+        }
+
+        #form-editar-paciente {
+            top: 285px;
+            max-height: calc(55vh);
+        }
+
+        .section-actions-btn-edit {
+            align-content: flex-end;
+            flex-direction: column;
+            flex-wrap: nowrap;
+            justify-content: space-between;
+        }
+
+        /* #containe-btnImprimirLista button {
+            border: none;
+            background-color: var(--gray-dark);
+        }
+
+        #containe-btnImprimirLista {
+            background-color: var(--gray);
+            border-radius: var(--radius-4);
+        } */
+    }
+
+    /* ===============================
+       Helpers
+    =============================== */
+    .hidden-search {
+        display: none !important;
+    }
+</style>
+
+
+<section class="section-main">
+    <h2 id="h2-principal">✏️ Edição de Paciente</h2>
+    <p id="p-principal">Gerencie, edite ou exclua os dados de um paciente já cadastrado. Utilize o campo abaixo para
+        localizar pacientes cadastrados informando o
+        <strong>ID</strong>, <strong>CPF</strong> ou <strong>Nome</strong>.
+    </p>
+
+    <!-- deve aparecer junto ao formulário de edição -->
+    <h2 id="h2-editar" style="display: none;">Atualização de Dados</h2>
+    <p id="p-editar" style="display: none;">
+        <span class="busca-observacao"></span>
+        Edite os dados do paciente conforme necessário e clique em <strong>Salvar</strong> para confirmar as
+        alterações.<br>
+        Para descartar as mudanças, utilize <strong>Cancelar</strong>. Para remover o paciente do sistema, clique em
+        <strong>Excluir</strong>.
+        </span>
+    </p>
+
+    <div class="section-main-container" id="section-main-container">
+        <!-- Formulário de busca -->
+        <form id="form-busca-paciente" class="form-busca-paciente">
+            <div class="section-grid section-grid-edit">
+                <label for="campoBusca" class="busca-label" style="flex:1;">
+                    Buscar por ID, Nome ou CPF:
+                    <input type="text" name="campoBusca" id="campoBusca" class="busca-input"
+                        placeholder="Digite ID, nome ou CPF" autocomplete="off" />
+                </label>
+
+                <div class="section-actions-btn section-actions-btn-edit">
+
+                    <button type="submit" class="action-button btn-blue" title="Buscar Paciente">🔎 <span
+                            class="buttonTextHidden">Pesquisar</span>
+                    </button>
+
+                    <button type="button" class="action-button btn-gray" id="btnImprimirLista"
+                        title="Imprimir Lista de Pacientes"> 🖨️ <span class="buttonTextHidden">Imprimir</span>
+                    </button>
+
+                </div>
+            </div>
+        </form>
+
+        <div id="listaPacientes" class="lista-pacientes-container" style="display:none"></div>
+
+        <div class="section-actions-btn" id="form-editar-paciente-btns" style="display: none;">
+            <button type="submit" form="form-editar-paciente" class="action-button btn-green" id="btnSalvarEdicao"
+                title="Salvar Alterações">💾
+                <span class="buttonTextHidden">Salvar</span></button>
+            <button type="button" class="action-button btn-blue" id="btnCancelarEdicao" title="Cancelar">✖️ <span
+                    class="buttonTextHidden">Cancelar</span></button>
+            <button type="button" class="action-button btn-red" id="btnExcluirPaciente" title="Excluir Paciente">🗑️
+                <span class="buttonTextHidden">Excluir</span></button>
+        </div>
+
+        <!-- Formulário de Edição dos Pacientes -->
+        <form class="section-main-container" id="form-editar-paciente" style="display:none">
+
+            <div class="support-container">
+                <h3>ℹ️ Dados Pessoais</h3>
+                <div class="section-grid">
+                    <!-- Data do laudo -->
+                    <label title="Data do último laudo emitido">
+                        <div>Data do laudo <span style="font-weight: normal;">(Data do último laudo emitido):</span>
+                        </div>
+                        <input type="date" aria-label="Data do último laudo emitido" name="dataLaudo" disabled />
+                    </label>
+                    <!-- Nome completo -->
+                    <label for="Nome completo" title="Nome Completo">
+                        Nome completo:
+                        <input type="text" name="nomeCompleto" aria-label="Nome Completo" />
+                    </label>
+                    <!-- Nome da mãe -->
+                    <label title="Nome da Mãe">
+                        Mãe:
+                        <input type="text" name="nomeMae" aria-label="Nome da Mãe" />
+                    </label>
+                    <!-- Nome do pai (opcional) -->
+                    <label title="Nome do Pai">
+                        <div>Pai <span style="font-weight: normal;">(opcional):</span></div>
+                        <input type="text" name="nomePai" aria-label="Nome do pai (opcional)" />
+                    </label>
+                    <!-- Sexo -->
+                    <label title="Sexo">
+                        Sexo:
+                        <select name="sexo" aria-label="Sexo">
+                            <option value="">Selecione</option>
+                            <option>Masculino</option>
+                            <option>Feminino</option>
+                            <option>Outro</option>
+                        </select>
+                    </label>
+                    <!-- Estado Civil -->
+                    <label title="Estado Civil">
+                        Estado civil:
+                        <select name="estadoCivil" aria-label="Estado Civil">
+                            <option value="">Selecione</option>
+                            <option>Solteiro(a)</option>
+                            <option>Casado(a)</option>
+                            <option>Divorciado(a)</option>
+                            <option>Viúvo(a)</option>
+                        </select>
+                    </label>
+                    <!-- Data de nascimento -->
+                    <label title="Data de Nascimento">
+                        Data de nascimento:
+                        <input type="date" name="dataNascimento" aria-label="Data de Nascimento" />
+                    </label>
+                    <!-- Identidade -->
+                    <label title="RG (Identidade)">
+                        RG (Identidade):
+                        <input type="text" name="rg" aria-label="RG (Identidade)" placeholder="Digite o RG"
+                            maxlength="12" />
+                    </label>
+                    <!-- Órgão emissor do RG -->
+                    <label title="Órgão Emissor do RG">
+                        Órgão emissor:
+                        <input type="text" name="orgaoEmissor" aria-label="Órgão Emissor do RG" maxlength="6"
+                            placeholder="Ex: SSP" />
+                    </label>
+                    <!-- CPF -->
+                    <label title="CPF">
+                        CPF:
+                        <input type="text" name="cpf" aria-label="CPF" placeholder="000.000.000-00" maxlength="14" />
+                    </label>
+                    <!-- Profissão Opcional -->
+                    <label title="Profissão">
+                        <div>Profissão <span style="font-weight: normal;">(opcional):</span></div>
+                        <input type="text" name="profissao" aria-label="Profissão" />
+                    </label>
+                    <!-- Escolaridade -->
+                    <label title="Escolaridade">
+                        Escolaridade:
+                        <select name="escolaridade" aria-label="Escolaridade">
+                            <option value="">Selecione</option>
+                            <option>Ensino Fundamental</option>
+                            <option>Ensino Médio Incompleto</option>
+                            <option>Ensino Médio Completo</option>
+                            <option>Superior Incompleto</option>
+                            <option>Superior Completo</option>
+                            <option>Pós-graduação</option>
+                        </select>
+                    </label>
+                    <!-- Raça/Cor -->
+                    <label title="Raça/Cor">
+                        Raça/Cor:
+                        <select name="raca" aria-label="Raça/Cor">
+                            <option value="">Selecione</option>
+                            <option>Branca</option>
+                            <option>Parda</option>
+                            <option>Preta</option>
+                            <option>Amarela</option>
+                            <option>Indígena</option>
+                        </select>
+                    </label>
+                    <!-- Nacionalidade -->
+                    <label title="Nacionalidade">
+                        Nacionalidade:
+                        <input type="text" name="nacionalidade" value="Brasileira" aria-label="Nacionalidade" />
+                    </label>
+                    <!-- Estado de Naturalidade -->
+                    <label title="Estado de Naturalidade">
+                        Estado de Naturalidade:
+                        <select name="estadoNaturalidade" class="estadoSelect"></select>
+                    </label>
+                    <!-- UF de Naturalidade -->
+                    <label title="UF de Naturalidade">
+                        UF:
+                        <input type="text" name="ufNaturalidade" class="ufSelect" aria-label="UF de Naturalidade"
+                            maxlength="2" size="2" placeholder="UF" disabled />
+                    </label>
+                    <!-- Cidade de Naturalidade -->
+                    <label title="Cidade de Naturalidade">
+                        Cidade de Naturalidade:
+                        <select name="cidadeNaturalidade" class="cidadeSelect"></select>
+                    </label>
+                </div>
+                <h3>📬 Endereço</h3>
+                <div class="section-grid">
+                    <!-- Rua -->
+                    <label title="Rua / Logradouro">
+                        Rua / Logradouro:
+                        <input type="text" name="rua" aria-label="Rua / Logradouro" />
+                    </label>
+                    <!-- Número -->
+                    <label title="Número">
+                        Número:
+                        <input type="text" name="numero" aria-label="Número" />
+                    </label>
+                    <!-- Complemento (Opcional) -->
+                    <label title="Complemento">
+                        <div>Complemento <span style="font-weight: normal;">(opcional):</span></div>
+                        <input type="text" name="complemento" aria-label="Complemento"
+                            placeholder="Casa, Apto, Bloco..." />
+                    </label>
+                    <!-- Bairro -->
+                    <label title="Bairro do Endereço">
+                        Bairro:
+                        <input type="text" name="bairroEndereco" aria-label="Bairro do Endereço" />
+                    </label>
+                    <!-- Estado -->
+                    <label title="Estado">
+                        Estado:
+                        <select name="estadoEndereco" class="estadoSelect">
+                            <option value="">Selecione o estado</option>
+                        </select>
+                    </label>
+                    <!-- UF -->
+                    <label title="UF de Endereço">
+                        UF:
+                        <input type="text" name="ufEndereço" class="ufSelect" aria-label="UF de Endereço" maxlength="2"
+                            size="2" placeholder="UF" disabled />
+                    </label>
+                    <!-- Cidade -->
+                    <label title="Cidade Endereço">
+                        Cidade:
+                        <select name="cidadeEndereco" class="cidadeSelect">
+                            <option value="">Selecione a cidade</option>
+                        </select>
+                    </label>
+                    <!-- CEP -->
+                    <label title="CEP">
+                        CEP:
+                        <input type="text" name="cep" placeholder="00000-000" aria-label="CEP" maxlength="9" />
+                    </label>
+                </div>
+                <h3>📞 Contato</h3>
+                <div class="section-grid">
+                    <!-- Telefone principal -->
+                    <label title="Telefone Principal">
+                        Telefone:
+                        <input type="tel" name="telefone" placeholder="(00) 00000-0000" aria-label="Telefone Principal"
+                            maxlength="15" />
+                    </label>
+                    <!-- Tipo de Contato (Opcional) -->
+                    <label title="Tipo de Contato">
+                        <div>Tipo de contato <span style="font-weight: normal;">(opcional):</span></div>
+                        <select name="tipoDeContato" aria-label="Tipo de Contato">
+                            <option value="">Selecione</option>
+                            <option>Residencial</option>
+                            <option>Comercial</option>
+                            <option>WhatsApp</option>
+                        </select>
+                    </label>
+                    <!-- Telefone adicional -->
+                    <label title="Telefone Adicional">
+                        <div>Telefone adicional <span style="font-weight: normal;">(opcional):</span></div>
+                        <input type="tel" name="telefoneAdicional" placeholder="(00) 00000-0000" />
+                    </label>
+                    <!-- E-mail (opcional) -->
+                    <label title="E-mail (Opcional)">
+                        <div>E-mail <span style="font-weight: normal;">(opcional):</span></div>
+                        <input type="email" name="email" placeholder="exemplo@email.com" />
+                    </label>
+                    <!-- Site ou redes sociais (opcional) -->
+                    <label title="Site ou redes sociais (Opcional)">
+                        <div>Site ou redes sociais <span style="font-weight: normal;">(opcional):</span></div>
+                        <input type="text" name="siteOuRedesSociais" aria-label="Site ou redes sociais (Opcional)"
+                            placeholder="Ex: www.site.com ou @usuario" />
+                    </label>
+                </div>
+                <h3>🧠 Avaliação Psicológica</h3>
+                <div class="section-grid">
+                    <label title="Tipo de Laudo">
+                        Tipo de laudo:
+                        <input type="text" name="tipoLaudo" id="tipoLaudo" aria-label="Tipo de Laudo" disabled>
+                    </label>
+                    <label class="full-width" title="Motivo da Avaliação">
+                        Motivo da avaliação:
+                        <textarea name="motivoAvaliacao" rows="2" aria-label="Motivo da Avaliação" disabled></textarea>
+                    </label>
+                    <label title="Data da Avaliação">
+                        Data da avaliação:
+                        <input type="date" name="dataAvaliacao" aria-label="Data da Avaliação" disabled />
+                    </label>
+                    <label class="full-width" title="Testes aplicados">
+                        Testes aplicados:
+                        <textarea name="testesAplicados" rows="3" aria-label="Testes aplicados" disabled></textarea>
+                    </label>
+                    <label class="full-width" title="Observações comportamentais">
+                        <div>Observações comportamentais <span style="font-weight: normal;">(opcional):</span></div>
+                        <textarea name="observacoesComportamentais" aria-label="Observações comportamentais" rows="3"
+                            disabled></textarea>
+                    </label>
+                    <label class="full-width" title="Histórico clínico relevante">
+                        <div>Histórico clínico relevante <span style="font-weight: normal;">(opcional):</span></div>
+                        <textarea name="historicoClinico" aria-label="Histórico clínico relevante" rows="3"
+                            disabled></textarea>
+                    </label>
+                    <label title="CID / Diagnóstico">
+                        CID (diagnóstico):
+                        <input type="text" name="cid" aria-label="CID / Diagnóstico" disabled />
+                    </label>
+                    <label class="full-width" title="Observações adicionais">
+                        <div>Observações adicionais <span style="font-weight: normal;">(opcional):</span></div>
+                        <textarea name="observacoesAdicionais" aria-label="Observações adicionais" rows="2"
+                            disabled></textarea>
+                    </label>
+                    <label class="full-width" title="Resultado da avaliação">
+                        Resultado da avaliação:
+                        <input type="text" name="resultadoAvaliacao" id="resultadoAvaliacao" disabled>
+                    </label>
+                    <label class="full-width" title="Descreva as restrições">
+                        Descreva as restrições:
+                        <textarea name="restricoes" rows="3" cols="30" aria-label="Descreva as restrições"
+                            disabled></textarea>
+                    </label>
+                </div>
+                <h3>🧑🏽‍⚕️ Dados do Profissional</h3>
+                <div class="section-grid">
+                    <label title="Nome do profissional">
+                        Nome do profissional responsável:
+                        <input type="text" name="nomeProfissional" aria-label="Nome do profissional" disabled />
+                    </label>
+                    <label title="Especialidade Profissional">
+                        Especialidade:
+                        <input type="text" name="especialidadeProfissional" aria-label="Especialidade Profissional"
+                            disabled />
+                    </label>
+                    <label title="Número do CRP">
+                        CRP:
+                        <input type="text" name="crp" aria-label="Número do CRP" disabled />
+                    </label>
+                    <label title="Estado do CRP">
+                        Estado:
+                        <input type="text" name="estadoCrp" maxlength="2" aria-label="Estado do CRP" disabled />
+                    </label>
+                    <label title="UF do CRP">
+                        UF:
+                        <input type="text" name="ufCrp" maxlength="2" aria-label="UF CRP" disabled />
+                    </label>
+                </div>
+                <h3>🏥 Dados da Clínica</h3>
+                <div class="section-grid">
+                    <label class="full-width" title="Nome da Clínica">
+                        Nome da clínica ou consultório:
+                        <input type="text" name="nomeClinica" aria-label="Nome da Clínica" disabled />
+                    </label>
+                    <label title="CNPJ">
+                        CNPJ da clínica:
+                        <input type="text" name="cnpjClinica" aria-label="CNPJ" disabled />
+                    </label>
+                    <label title="Estado da Clínica">
+                        Estado:
+                        <input type="text" name="estadoClinica" aria-label="Estado (UF)" maxlength="2" disabled />
+                    </label>
+                    <label title="UF de Clínica">
+                        UF:
+                        <input type="text" name="ufClinica" class="ufSelect" aria-label="UF de Clínica" maxlength="2"
+                            size="2" disabled />
+                    </label>
+                    <label title="Cidade da Emissão">
+                        Cidade:
+                        <input type="text" name="cidadeClinica" aria-label="Cidade da Emissão" disabled />
+                    </label>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div id="container-prints-patients" style="display: none; visibility: hidden;">
+        <!-- Container oculto para impressão PDF -->
+        <div id="print-lista-pacientes" style="display:none"></div>
+        <!-- Container oculto para impressão PDF individual -->
+        <div id="print-paciente-individual" style="display:none"></div>
+    </div>
+</section>

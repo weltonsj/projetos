@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Login | iCouLaudos</title>
+        <link rel="stylesheet" href="./src/config/css/main.css">
+        <link rel="stylesheet" href="./src/config/css/reset.css">
+        <link rel="stylesheet" href="./src/config/css/variables.css">
+    </head>
+    <body>
+        <main class="login-container">
+            <section class="login-card">
+                <img src="" alt="Logo iCouLaudos" class="logo"/>
+                <h1>Bem-vindo ao iCouLaudos</h1>
+                <p>Acesse sua conta para continuar</p>
+
+                <form id="login-form">
+                    <div class="input-group">
+                        <input type="email" id="email" placeholder="E-mail" required>
+                        <span class="error-message" id="email-error"></span>
+                    </div>
+
+                    <div class="input-group password-group">
+                        <input type="password" id="password" placeholder="**********" required>
+                        <button type="button" id="togglePassword" aria-label="Mostrar ou ocultar senha">🔒</button>
+                        <span class="error-message" id="password-error"></span>
+                    </div>
+
+                    <button type="submit" id="login-button">Entrar</button>
+                    <span class="link">Esqueceu a <a href="src/pages/recovery/password-recovery.html">senha?</a></span>
+                    <span class="link">Ainda não tem conta? <a target="_blank" href="src/pages/registration/user-registration.html">Cadastre-se</a></span>
+                </form>
+            </section>
+        </main>
+
+        <script type="module" src="./src/main.js"></script>
+    </body>
+</html>

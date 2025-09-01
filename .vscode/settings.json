@@ -1,0 +1,11 @@
+{
+    "html.format.contentUnformatted": "",
+    "html.format.indentInnerHtml": true,
+    "html.format.extraLiners": "",
+    "html.format.indentHandlebars": false,
+    "html.format.enable": true,
+    "html.format.preserveNewLines": true,
+    "editor.indentSize": "tabSize",
+    "editor.wordWrap": "on",
+    "editor.wordWrapColumn": 80,
+}
